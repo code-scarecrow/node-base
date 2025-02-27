@@ -50,3 +50,4 @@ Thumbs.db
 
 coverage/*
 .npmrc
+tsconfig.build.tsbuildinfo
