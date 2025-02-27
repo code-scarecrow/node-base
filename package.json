@@ -1,6 +1,6 @@
 {
   "name": "@code-scarecrow/base",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "license": "UNLICENSED",
   "description": "Scarecrow base dependecies",
   "main": "index.js",
