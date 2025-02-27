@@ -1,20 +1,34 @@
 import { Injectable } from '@nestjs/common';
-import { AxiosInstance, AxiosRequestConfig, AxiosRequestHeaders, AxiosResponse, AxiosResponseHeaders } from 'axios';
+import {
+  AxiosHeaders,
+  AxiosInstance,
+  AxiosResponse,
+  AxiosResponseHeaders,
+  InternalAxiosRequestConfig,
+  Method,
+  RawAxiosRequestHeaders,
+  RawAxiosResponseHeaders,
+} from 'axios';
 import { Logger } from '../core/Logger';
-import * as FormData from 'form-data';
+
+type MethodsHeaders = Partial<
+  {
+    [Key in Method as Lowercase<Key>]: AxiosHeaders;
+  } & { common: AxiosHeaders }
+>;
 
 interface RequestMetadata {
   method: string | undefined;
   domain: string | undefined;
   endpoint: string | undefined;
   queryParams: unknown;
-  headers: AxiosRequestHeaders | undefined;
+  headers: (RawAxiosRequestHeaders & MethodsHeaders) | AxiosHeaders | undefined;
   body: unknown;
 }
 
 interface ResponseMetadata {
   statusCode: number;
-  headers: AxiosResponseHeaders;
+  headers: RawAxiosResponseHeaders | AxiosResponseHeaders;
   body: unknown;
 }
 
@@ -22,15 +36,14 @@ interface ResponseMetadata {
 export class AxiosLoggerInterceptor {
   constructor(private logger: Logger) {}
 
-  public requestInterceptor(config: AxiosRequestConfig<unknown>) {
-
+  public requestInterceptor(config: InternalAxiosRequestConfig<unknown>) {
     const metadata: RequestMetadata = {
       method: config.method,
       domain: config.baseURL,
       endpoint: config.url,
       queryParams: config.params,
-      body: config.data instanceof FormData ? 'Buffer data was too big.' : config.data,
-      headers: config.headers,
+      body: config.data,
+      headers: config.headers.toJSON(true),
     };
 
     this.logger.info('External request', metadata);
