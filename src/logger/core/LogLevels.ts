@@ -1,4 +1,4 @@
-import { SafeMap } from './utils/SafeMap';
+import { SafeMap } from '../../core/SafeMap';
 
 export enum LogLevels {
   VERBOSE,

@@ -2,7 +2,7 @@ import { ConsoleWritterLogMessage } from './ConsoleWritterLogMessage';
 import { IWritter } from '../IWritter';
 import { LogLevels } from '../LogLevels';
 import { LogMessage } from '../LogMessage';
-import { SafeMap } from '../utils/SafeMap';
+import { SafeMap } from '../../../core/SafeMap';
 
 const stdout = (message: string) => console.log(message);
 const stderr = (message: string) => console.error(message);

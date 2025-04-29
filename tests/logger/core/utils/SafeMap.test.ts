@@ -1,4 +1,4 @@
-import { SafeMap } from "../../../../src/logger/core/utils/SafeMap";
+import { SafeMap } from "../../../../src/core/SafeMap";
 
 describe('SafeMap Test', () => {
   it('should get exisisting result', async () => {
