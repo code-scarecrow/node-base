@@ -13,11 +13,11 @@ export class SafeTwoWaysMap<K, V> {
 		});
 	}
 
-	public get(key: K): V | undefined {
+	public get(key: K): V {
 		return this.map.get(key);
 	}
 
-	public getRev(key: V): K | undefined {
+	public getRev(key: V): K {
 		return this.reverseMap.get(key);
 	}
 }
